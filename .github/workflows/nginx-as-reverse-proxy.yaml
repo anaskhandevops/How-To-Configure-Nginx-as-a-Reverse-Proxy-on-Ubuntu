@@ -3,6 +3,7 @@
 # It checks out the code, sets up the necessary environment, logs in to Docker Hub, 
 # builds the image, runs the container, and verifies that the application is accessible.
 # The image is tagged with the current GitHub Actions run number for unique identification.
+# step nginx as a reverse proxy and verifies that the application is accessible.
 
 name: setup nginx as reverse proxy 
 
@@ -49,16 +50,14 @@ jobs:
           echo "Waiting for the container to start..."
           sleep 5 
 
-      - name: Set up nginx
-        uses: nyurik/action-setup-nginx@v1
-        id: nginx
+      - name: Install Nginx
+        run: apt install nginx -y
 
-      - name: Setup Reverse proxy 
+      - name: Configuration file for myapp 
         run: |
           sudo cat << 'EOF' | sudo tee /etc/nginx/sites-available/myapp
           server {
               listen 80;
-
               location / {
                   proxy_pass http://localhost:8080;  
                   proxy_set_header Host $host;
@@ -68,10 +67,11 @@ jobs:
           }
           EOF
 
+      - name: Enable configuration file and reload the nginx
+        run: |
           ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/myapp
           rm /etc/nginx/sites-enabled/default
           systemctl reload nginx
-
 
       - name: Verify the application is accessible
         run: |
