@@ -7,7 +7,7 @@
 name: Check liveness of the app
 
 on:
-  push:
+  # push:
   workflow_dispatch:
 
 env:
