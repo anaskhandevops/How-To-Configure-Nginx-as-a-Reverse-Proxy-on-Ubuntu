@@ -5,7 +5,7 @@
 # The image is tagged with the current GitHub Actions run number for unique identification.
 # step nginx as a reverse proxy and verifies that the application is accessible.
 
-name: setup nginx as reverse proxy 
+name: configure nginx as a reverse proxy
 
 on:
   push:
