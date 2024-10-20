@@ -51,7 +51,7 @@ jobs:
           sleep 5 
 
       - name: Install Nginx
-        run: apt install nginx -y
+        run: sudo apt install nginx -y
 
       - name: Configuration file for myapp 
         run: |
@@ -69,9 +69,9 @@ jobs:
 
       - name: Enable configuration file and reload the nginx
         run: |
-          ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/myapp
-          rm /etc/nginx/sites-enabled/default
-          systemctl reload nginx
+          sudo ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/myapp
+          sudo rm /etc/nginx/sites-enabled/default
+          sudo systemctl reload nginx
 
       - name: Verify the application is accessible
         run: |
