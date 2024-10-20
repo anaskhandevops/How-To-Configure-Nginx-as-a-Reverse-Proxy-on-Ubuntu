@@ -34,3 +34,6 @@ jobs:
           push: true
           # tags: ${{ env.OWNER_NAME }}/${{ env.REPOSITORY_NAME }}:latest
           tags: ${{ env.OWNER_NAME }}/${{ env.REPOSITORY_NAME }}:${{ github.run_number }}
+
+      - name: Run the docker container
+        run: docker run -it -d -p 8080:80 ${{ env.OWNER_NAME }}/${{ env.REPOSITORY_NAME }}:${{ github.run_number }}
