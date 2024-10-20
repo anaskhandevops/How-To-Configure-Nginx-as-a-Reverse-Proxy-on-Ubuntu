@@ -4,7 +4,7 @@
 # builds the image, runs the container, and verifies that the application is accessible.
 # The image is tagged with the current GitHub Actions run number for unique identification.
 
-name: docker build and push image 
+name: Check liveness of the app
 
 on:
   push:
