@@ -15,7 +15,7 @@ env:
   REPOSITORY_NAME: how-to-configure-nginx-as-a-reverse-proxy-on-ubuntu
 
 jobs:
-  docker-build-and-push:
+  app-liveness-test:
     runs-on: ubuntu-latest
     steps:
 
