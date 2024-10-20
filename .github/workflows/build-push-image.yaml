@@ -2,15 +2,20 @@ name: docker build and push image
 
 on:
   push:
+  workflow_dispatch:
 
 env:
   OWNER_NAME: 1devops2
   REPOSITORY_NAME: how-to-configure-nginx-as-a-reverse-proxy-on-ubuntu
 
 jobs:
-  docker:
+  docker-build-and-push:
     runs-on: ubuntu-latest
     steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
