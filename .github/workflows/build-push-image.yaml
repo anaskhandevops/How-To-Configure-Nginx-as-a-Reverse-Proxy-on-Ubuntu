@@ -37,3 +37,22 @@ jobs:
 
       - name: Run the docker container
         run: docker run -it -d -p 8080:80 ${{ env.OWNER_NAME }}/${{ env.REPOSITORY_NAME }}:${{ github.run_number }}
+
+      - name: Wait for the container to start
+        run: |
+          echo "Waiting for the container to start..."
+          sleep 5 # Adjust the sleep duration if needed
+
+      - name: Verify the application is accessible
+        run: |
+          echo "Checking if the application is accessible..."
+          for i in {1..5}; do
+            if curl -s --head http://localhost:8080 | grep "200 OK"; then
+              echo "Application is accessible."
+              exit 0
+            fi
+            echo "Application is not accessible yet. Retrying in 5 seconds..."
+            sleep 3
+          done
+          echo "Application is not accessible after multiple attempts."
+          exit 1
